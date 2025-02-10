@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '../models/recipe.dart';
 
@@ -10,6 +12,8 @@ class _AddRecipeDialogState extends State<AddRecipeDialog> {
   final _titleController = TextEditingController();
   final _ingredientsController = TextEditingController();
   final _instructionsController = TextEditingController();
+  final _authorController = TextEditingController();
+  final _descriptionController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,16 @@ class _AddRecipeDialogState extends State<AddRecipeDialog> {
               decoration: InputDecoration(labelText: 'Instructions (comma-separated)'),
               maxLines: 3,
             ),
+            TextField(
+              controller: _authorController,
+              decoration: InputDecoration(labelText: 'Author (comma-separated)'),
+              maxLines: 3,
+            ),
+            TextField(
+              controller: _descriptionController,
+              decoration: InputDecoration(labelText: 'description (comma-separated)'),
+              maxLines: 3,
+            )
           ],
         ),
       ),

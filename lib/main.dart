@@ -4,6 +4,8 @@ import 'pages.dart/home.dart';
 import 'pages.dart/login.dart';
 import 'pages.dart/mixitup.dart';
 import 'pages.dart/publicrecipes.dart';
+import 'widgets/navbar.dart';
+import 'widgets/sidebar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +19,8 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -30,7 +34,56 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/p-recipes': (context) => PublicRecipesScreen(),
         '/mix-it': (context) => MixItUpScreen(),
+        '/login': (context) => LoginScreen(),
       },
+    );
+  }
+}
+class MainScreen extends StatefulWidget {
+  const MainScreen({super.key});
+
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  int _selectedIndex = 0;
+  final List<Widget> _screens = [
+    HomeScreen(),
+    PublicRecipesScreen(),
+    MixItUpScreen(),
+    LoginScreen(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+   void _handleSignOut() {
+    // Implement sign out logic here
+    Navigator.pushReplacementNamed(context, '/login');
+    print('User signed out');
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Row(
+        children: [
+          Expanded(
+            child: Column(
+              children: [
+                AppNavbar(onRouteChanged: (int ) {  },),
+                Expanded(
+                  child: _screens[_selectedIndex],
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

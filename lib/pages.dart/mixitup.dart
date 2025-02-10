@@ -50,7 +50,7 @@ class _MixItUpScreenState extends State<MixItUpScreen> {
               child: Text('Generate Mixed Recipe'),
             ),
             SizedBox(height: 20),
-            if (_mixedRecipe != null) RecipeCard(recipe: _mixedRecipe!),
+            if (_mixedRecipe != null) RecipeCard(recipe: _mixedRecipe!, children: [],),
           ],
         ),
       ),

@@ -5,7 +5,7 @@ class RecipeCard extends StatelessWidget {
   final Recipe recipe;
   final VoidCallback? onDelete;
 
-  const RecipeCard({Key? key, required this.recipe, this.onDelete}) : super(key: key);
+  const RecipeCard({Key? key, required this.recipe, this.onDelete, required List<Expanded> children}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

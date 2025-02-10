@@ -19,5 +19,20 @@ class Recipe {
       instructions: List<String>.from(json['instructions']),
     );
   }
+
+    Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'ingredients': ingredients,
+      'instructions': instructions,
+    };
+  }
+
+  static Stream<List<Recipe>> fromMap(data, id) {
+    // Implement your logic here to convert data to List<Recipe>
+    // For now, returning an empty stream
+    return Stream.value([]);
+  }
 }
 

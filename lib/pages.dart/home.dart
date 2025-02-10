@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:cookingnf/models/recipe.dart';
-import 'package:cookingnf/widgets/recipecard.dart';
 import 'package:cookingnf/widgets/addrecipe.dart';
+import 'package:cookingnf/widgets/navbar.dart';
+import 'package:cookingnf/widgets/recipecard.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,6 +12,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   List<Recipe> _recipes = [];
+  
+  int _selectedIndex = 0;
+  final List<Widget> _screens = [
+    // Add your screens here
+    Center(child: Text('Screen 1')),
+    Center(child: Text('Screen 2')),
+    Center(child: Text('Screen 3')),
+  ];
 
   @override
   void initState() {
@@ -20,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Future<void> _loadRecipes() async {
     final userId = Supabase.instance.client.auth.currentUser!.id;
+    
     final response = await Supabase.instance.client
         .from('recipes')
         .select()
@@ -61,13 +71,17 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('My Recipes'),
         actions: [
-          IconButton(
-            icon: Icon(Icons.public),
-            onPressed: () => Navigator.pushNamed(context, '/public'),
+           IconButton(
+            icon: Icon(Icons.login),
+            onPressed: () => Navigator.pushNamed(context, '/login'),
           ),
           IconButton(
-            icon: Icon(Icons.shuffle),
-            onPressed: () => Navigator.pushNamed(context, '/mix'),
+            icon: Icon(Icons.food_bank),
+            onPressed: () => Navigator.pushNamed(context, '/p-recipes'),
+          ),
+          IconButton(
+            icon: Icon(Icons.pages),
+            onPressed: () => Navigator.pushNamed(context, '/mix-it'),
           ),
         ],
       ),
@@ -76,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
         itemBuilder: (context, index) {
           return RecipeCard(
             recipe: _recipes[index],
-            onDelete: () => _removeRecipe(_recipes[index]),
+            onDelete: () => _removeRecipe(_recipes[index]), children: [],
           );
         },
       ),
@@ -87,4 +101,3 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
-
